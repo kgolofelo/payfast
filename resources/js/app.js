@@ -18,7 +18,8 @@ Vue.use(VueRouter);
 window.Form = Form;
 
 const routes = [
-    {path: '/', component: require('./components/MovieBooking.vue').default}
+    {path: '/', component: require('./components/MovieBooking.vue').default},
+    {path: '/registration', component: require('./components/Registration.vue').default}
 ];
 
 const router = new VueRouter({
