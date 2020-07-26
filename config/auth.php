@@ -42,7 +42,7 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
             'hash' => false,
         ],
@@ -113,5 +113,12 @@ return [
     */
 
     'password_timeout' => 10800,
+
+
+    'token_name' => 'Movie-Booking',
+    'user_scopes' => [
+        'is_admin' => 'admin',
+        'is_customer' => 'customer',
+    ]
 
 ];
