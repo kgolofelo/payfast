@@ -55,6 +55,7 @@
                 this.form.post('api/register')
                     .then((response) => {
                         localStorage.setItem('movie-token', response.data.token);
+                        localStorage.setItem('display-name', response.data.name);
                         this.$router.push('/');
                     })
                     .catch((error) => {

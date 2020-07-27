@@ -38,6 +38,7 @@
                 this.form.post('api/login')
                     .then((response) => {
                         localStorage.setItem('movie-token', response.data.token);
+                        localStorage.setItem('display-name', response.data.name);
                         this.$router.push('/');
                     })
                     .catch((error) => {
