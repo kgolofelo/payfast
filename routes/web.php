@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('movie-booking');
 });
+
+Route::get('/login', function () {
+    return response()->json('Unauthorized access, please authenticate and try again.', 401);
+})->name('login');;

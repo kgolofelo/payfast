@@ -23,3 +23,7 @@ Route::apiResources([
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => ['auth:api','scope:'.Config::get('auth.user_scopes.is_customer')]], function(){
+    Route::post('save-booking', 'Booking@store');
+});
