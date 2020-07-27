@@ -62,7 +62,7 @@ class Booking extends Controller
             ->join('film', 'movie_booking.film_id', '=', 'film.id')
             ->join('cinema_locations', 'movie_booking.cinema_location_id', '=', 'cinema_locations.id')
             ->join('film_show_times', 'movie_booking.film_show_time_id', '=', 'film_show_times.id')
-            ->select('cinema_locations.location_name', 'film.film_name', 'film_show_times.film_time',
+            ->select('cinema_locations.location_name', 'film.film_name', 'movie_booking.booking_reference', 'film_show_times.film_time',
                 'movie_booking.created_at', 'movie_booking.number_of_seats', 'movie_booking.booking_status')
             ->where('movie_booking.user_id', $request->user()->id)
             ->get();
