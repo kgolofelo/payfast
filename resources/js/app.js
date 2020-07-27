@@ -21,7 +21,8 @@ const routes = [
     {path: '/', component: require('./components/MovieBooking.vue').default},
     {path: '/registration', component: require('./components/Registration.vue').default},
     {path: '/login', component: require('./components/Login.vue').default},
-    {path: '/logout', component: require('./components/Logout.vue').default}
+    {path: '/logout', component: require('./components/Logout.vue').default},
+    {path: '/booking-history', component: require('./components/BookingHistory.vue').default}
 ];
 
 const router = new VueRouter({

@@ -4,9 +4,9 @@
             <div v-if="loggedIn">
                 <span class="text-info">Hi, {{ loggedInName }}</span>
                 <hr class="border-light">
-                <router-link to="/logout" class="small">Booking History</router-link>
+                <router-link to="/booking-history" class="small">Booking History</router-link>
                 |
-                <router-link to="/cancel-booking" class="small">Cancel a Booking</router-link>
+                <router-link to="/booking-cancel" class="small">Cancel a Booking</router-link>
                 |
                 <router-link to="/logout" class="small">Logout</router-link>
                 <hr class="border-light">
