@@ -18,6 +18,7 @@ Route::post('register', 'UserController@register');
 Route::apiResources([
     'cinema-locations' => 'CinemaLocations',
     'films' => 'Film',
+    'film-show-times' => 'FilmShowTimes',
 ]);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
