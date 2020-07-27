@@ -41,4 +41,10 @@ class MovieBookingTest extends TestCase
         $response = $this->get('/api/films?cinema_location_id=1');
         $response->assertStatus(200)->assertJsonStructure([0]);
     }
+
+    // Check that a film has show times
+    public function testGettingFilmShowTimes() {
+        $response = $this->get('/api/film-show-times?film_id=1');
+        $response->assertStatus(200)->assertJsonStructure([0]);
+    }
 }
