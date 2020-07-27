@@ -21,7 +21,7 @@ class MovieBookingTest extends TestCase
         $response->assertStatus(200)->assertJsonStructure(['api_message', 'token']);
 
         $token = $response['token'];
-        
+
         // Check if we can save a booking
         $response = $this->post('/api/save-booking', [
             'user_id' => '1',
@@ -33,7 +33,7 @@ class MovieBookingTest extends TestCase
         ],
             ['Authorization' => "Bearer $token"]);
 
-        $response->assertStatus(200)->assertJsonStructure(['booking_reference']);
+        $response->assertStatus(200)->assertJsonStructure(['message']);
     }
 
     public function testUserLogin()
