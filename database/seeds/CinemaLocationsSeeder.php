@@ -16,6 +16,5 @@ class CinemaLocationsSeeder extends Seeder
         foreach ($cinemaLocations as $location) {
             CinemaLocation::create(['location_name' => $location]);
         }
-
     }
 }
