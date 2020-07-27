@@ -21,9 +21,17 @@
             </div>
             <div class="form-group row">
                 <label>Cinema:</label>
-                <select class="form-control">
+                <select class="form-control" @change='getFilms($event)'>
                     <option value="0">Select a Cinema</option>
                     <option v-for="item in cinemaLocations" :value='item.id'>{{ item.location_name }}</option>
+                </select>
+            </div>
+
+            <div class="form-group row">
+                <label>Film:</label>
+                <select class="form-control">
+                    <option value="0">Select a Film</option>
+                    <option v-for="item in films" :value='item.id'>{{ item.film_name }}</option>
                 </select>
             </div>
 
@@ -47,7 +55,8 @@
                 messageText: '',
                 loggedIn: false,
                 loggedInName: '',
-                cinemaLocations: [{}]
+                cinemaLocations: [{}],
+                films: [{}]
             }
         },
         methods: {
@@ -58,10 +67,19 @@
             },
             getCinemaLocations() {
                 axios.get('/api/cinema-locations')
-                    .then(function (response) {
-                        this.cinemaLocations=response.data;
-                    }.bind(this));
-                console.log(this.cinemaLocations);
+                .then(function (response) {
+                    this.cinemaLocations=response.data;
+                }.bind(this));
+            },
+            getFilms(itemName) {
+                axios.get('/api/films', {
+                    params: {
+                     cinema_location_id:itemName.target.value
+                    }
+                })
+                .then(function (response) {
+                    this.films=response.data;
+                }.bind(this));
             }
         },
         created() {
