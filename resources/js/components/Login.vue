@@ -12,7 +12,7 @@
                     <input v-model="form.password" id="password" type="password" name="password" required="required"
                            autocomplete="current-password" class="form-control ">
                 </div>
-                <div class="row mb-0">
+                <div class="row justify-content-center mb-0">
                     <button type="submit" class="btn btn-primary mr-1">
                         Login
                     </button>
