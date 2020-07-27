@@ -7,10 +7,9 @@ use Tests\TestCase;
 
 class MovieBookingTest extends TestCase
 {
-    protected $token;
-
-    public function testUserRegistration()
+    public function testBookingProcess()
     {
+        // Check if we can register before booking a seat
         $response = $this->post('/api/register', [
             'name' => 'Movie User',
             'email' => 'KG' . rand(1, 1000) . '@demo.com',
@@ -21,10 +20,11 @@ class MovieBookingTest extends TestCase
         $response->assertStatus(200)->assertJsonStructure(['api_message', 'token']);
 
         $token = $response['token'];
+        $userId = $response['id'];
 
         // Check if we can save a booking
         $response = $this->post('/api/save-booking', [
-            'user_id' => '1',
+            'user_id' => $userId,
             'film_id' => '1',
             'booking_reference' => rand(0, 9999),
             'film_show_time_id' => 1,
@@ -32,8 +32,12 @@ class MovieBookingTest extends TestCase
             'number_of_seats' => 1,
         ],
             ['Authorization' => "Bearer $token"]);
-
         $response->assertStatus(200)->assertJsonStructure(['message']);
+
+        // Check if we can get booking history
+        $response = $this->get('/api/booking-history',['Authorization' => "Bearer $token"]);
+        $response->assertStatus(200)->assertJsonStructure([0]);
+
     }
 
     public function testUserLogin()
