@@ -29,4 +29,10 @@ class MovieBookingTest extends TestCase
 
         $response->assertStatus(200)->assertJsonStructure(['token']);
     }
+
+    // Check for atleast one cinema location
+    public function testGettingCinemaLocations() {
+        $response = $this->get('/api/cinema-locations');
+        $response->assertStatus(200)->assertJsonStructure([0]);
+    }
 }
