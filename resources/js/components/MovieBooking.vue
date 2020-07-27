@@ -21,7 +21,7 @@
             </div>
             <div class="form-group row">
                 <label>Cinema:</label>
-                <select class="form-control" @change='getFilms($event)'>
+                <select class="form-control" @change="getFilms($event)">
                     <option value="0">Select a Cinema</option>
                     <option v-for="item in cinemaLocations" :value='item.id'>{{ item.location_name }}</option>
                 </select>
@@ -29,9 +29,17 @@
 
             <div class="form-group row">
                 <label>Film:</label>
-                <select class="form-control">
+                <select class="form-control" @change="getFilmTimes($event)">
                     <option value="0">Select a Film</option>
                     <option v-for="item in films" :value='item.id'>{{ item.film_name }}</option>
+                </select>
+            </div>
+
+            <div class="form-group row">
+                <label>Show Time:</label>
+                <select class="form-control">
+                    <option value="0">Select a Show Time</option>
+                    <option v-for="item in filmShowTimes" :value='item.id'>{{ item.film_time }}</option>
                 </select>
             </div>
 
@@ -56,7 +64,8 @@
                 loggedIn: false,
                 loggedInName: '',
                 cinemaLocations: [{}],
-                films: [{}]
+                films: [{}],
+                filmShowTimes: [{}]
             }
         },
         methods: {
@@ -79,6 +88,16 @@
                 })
                 .then(function (response) {
                     this.films=response.data;
+                }.bind(this));
+            },
+            getFilmTimes(itemName) {
+                axios.get('/api/film-show-times', {
+                    params: {
+                        film_id:itemName.target.value
+                    }
+                })
+                .then(function (response) {
+                    this.filmShowTimes=response.data;
                 }.bind(this));
             }
         },
