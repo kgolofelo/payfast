@@ -21,7 +21,7 @@ class CreateMovieBooking extends Migration
             $table->integer('film_show_time_id');
             $table->integer('cinema_location_id');
             $table->integer('number_of_seats');
-            $table->integer('booking_status');
+            $table->string('booking_status');
             $table->timestamps();
         });
     }
