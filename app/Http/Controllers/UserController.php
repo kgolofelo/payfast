@@ -69,6 +69,7 @@ class UserController extends Controller
 
             $responseData['token'] = $user->createToken(Config::get('auth.token_name'), [$user->role])->accessToken;
             $responseData['name'] = $user->name;
+            $responseData['id'] = $user->id;
             $responseData['api_message'] = 'User registered successfully';
             return response()->json($responseData, 200);
         } catch (\Exception $exception) {
