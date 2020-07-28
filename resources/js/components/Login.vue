@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row mt-1">
+        <div class="row mt-1 justify-content-center">
             <form @submit.prevent="login" @keydown="form.onKeydown($event)">
                 <div class="form-group row">
                     <label>E-Mail Address:</label>
