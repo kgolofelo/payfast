@@ -88,10 +88,14 @@ class Booking extends Controller
         }
 
         try {
-            $booking = MovieBooking::where('booking_reference', $request->booking_reference)->first(['created_at', 'id']);
+            $booking = MovieBooking::where('booking_reference', $request->booking_reference)
+                ->join('film_show_times', 'movie_booking.film_show_time_id', '=', 'film_show_times.id')
+                ->select('film_show_times.film_time', 'movie_booking.id')
+                ->first();
+
             if (!empty($booking)) {
-                $bookingDateUnparsed = $booking->toArray();
-                $bookingDateTime = Carbon::parse($bookingDateUnparsed['created_at'], Config::get('app.timezone'));
+                $bookingTime = $booking->toArray();
+                $bookingDateTime = Carbon::parse($bookingTime['film_time'], Config::get('app.timezone'));
                 $currentDateTime = Carbon::now(Config::get('app.timezone'));
                 $hourDifference = $currentDateTime->diffInHours($bookingDateTime);
 
