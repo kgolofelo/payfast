@@ -24,7 +24,7 @@ class Booking extends Controller
                 'film_id' => 'required|integer|min:1',
                 'film_show_time_id' => 'required|integer|min:1',
                 'cinema_location_id' => 'required|integer|min:1',
-                'number_of_seats' => 'required|integer',
+                'number_of_seats' => 'required|integer|min:1',
             ]);
             if ($validator->fails()) {
                 return response()->json(['error' => $validator->errors()], 401);
