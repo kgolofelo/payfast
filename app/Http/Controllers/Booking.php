@@ -31,7 +31,11 @@ class Booking extends Controller
             }
 
             // Check how many seats are booked per film, per show time
-            $bookedSeats = MovieBooking::where(['film_id' => $request->film_id, 'film_show_time_id' => $request->film_show_time_id])->sum('number_of_seats');
+            $bookedSeats = MovieBooking::where([
+                'film_id' => $request->film_id,
+                'film_show_time_id' => $request->film_show_time_id,
+                'booking_status' => 'accepted'
+            ])->sum('number_of_seats');
 
             $newBookedSeats = $request->number_of_seats + $bookedSeats;
             $maxSeats = 30;
@@ -67,6 +71,7 @@ class Booking extends Controller
             ->select('cinema_locations.location_name', 'film.film_name', 'movie_booking.booking_reference', 'film_show_times.film_time',
                 'movie_booking.created_at', 'movie_booking.number_of_seats', 'movie_booking.booking_status')
             ->where('movie_booking.user_id', $request->user()->id)
+            ->orderBy('movie_booking.id', 'desc')
             ->get();
         return response()->json($bookingHistory, 200);
     }
