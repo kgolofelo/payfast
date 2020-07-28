@@ -30,7 +30,6 @@
                 })
                 .then(function (response) {
                     this.bookingHistory=response.data;
-                    console.log(this.bookingHistory);
                 }.bind(this));
             }
         }
