@@ -22,7 +22,8 @@ const routes = [
     {path: '/registration', component: require('./components/Registration.vue').default},
     {path: '/login', component: require('./components/Login.vue').default},
     {path: '/logout', component: require('./components/Logout.vue').default},
-    {path: '/booking-history', component: require('./components/BookingHistory.vue').default}
+    {path: '/booking-history', component: require('./components/BookingHistory.vue').default},
+    {path: '/booking-cancel-show', component: require('./components/BookingCancel').default}
 ];
 
 const router = new VueRouter({

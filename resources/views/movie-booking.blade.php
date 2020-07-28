@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="row justify-content-center mt-3">
-            <div class="card">
+            <div class="card  col-md-10">
                 <div class="card-header text-center">
                     <span>Movie Booking</span>
                 </div>
