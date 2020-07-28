@@ -9,7 +9,7 @@ VUE has been used for the front-end because of its small size -
 it has little impact on Laravel’s architecture, it almost just plugs in. The system has also benefited from VUE’s efficient data binding and routing when 
 rendering the components onto a Web browser.
 
-Laravel's database migration and seeder has been setup to create all the necessary tables and movie data that is required to book a seat.
+Laravel's database migration and seeder have been setup to create all the necessary tables and movie data that is required to book a seat.
 
 ## Setup Guide
 #### Step 1
