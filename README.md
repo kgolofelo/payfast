@@ -36,4 +36,4 @@ In the project’s root level, run the following commands to setup the required 
   8. npm run watch
 
 #### Step 6
-Open a new terminal in the project's root folder, run php artisan serve and click on the server link that gets displayed 
+Open a new terminal in the project's root folder, run php artisan serve and click on the server link that gets displayed.
