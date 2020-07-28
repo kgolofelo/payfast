@@ -26,17 +26,24 @@ class MovieBookingTest extends TestCase
         $response = $this->post('/api/save-booking', [
             'user_id' => $userId,
             'film_id' => '1',
-            'booking_reference' => rand(0, 9999),
-            'film_show_time_id' => 1,
+            'film_show_time_id' => 3,
             'cinema_location_id' => 1,
             'number_of_seats' => 1,
         ],
             ['Authorization' => "Bearer $token"]);
         $response->assertStatus(200)->assertJsonStructure(['message']);
+        $booking_reference = $response['booking_reference'];
 
         // Check if we can get booking history
         $response = $this->get('/api/booking-history',['Authorization' => "Bearer $token"]);
         $response->assertStatus(200)->assertJsonStructure([0]);
+
+        // Check if we can cancel a booking
+        $response = $this->put('/api/booking-cancel', [
+            'booking_reference' => $booking_reference,
+        ],
+            ['Authorization' => "Bearer $token"]);
+        $response->assertStatus(200)->assertJsonStructure(['message']);
 
     }
 
