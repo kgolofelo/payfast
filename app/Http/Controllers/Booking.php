@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\MovieBooking;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -67,5 +69,41 @@ class Booking extends Controller
             ->where('movie_booking.user_id', $request->user()->id)
             ->get();
         return response()->json($bookingHistory, 200);
+    }
+
+    /**
+     *  This function sets a movie booking's status to cancelled, if the movie
+     *  gets cancelled within 1 hour of its show time.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'booking_reference' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+
+        try {
+            $booking = MovieBooking::where('booking_reference', $request->booking_reference)->first(['created_at', 'id']);
+            if (!empty($booking)) {
+                $bookingDateUnparsed = $booking->toArray();
+                $bookingDateTime = Carbon::parse($bookingDateUnparsed['created_at'], Config::get('app.timezone'));
+                $currentDateTime = Carbon::now(Config::get('app.timezone'));
+                $hourDifference = $currentDateTime->diffInHours($bookingDateTime);
+
+                if ($bookingDateTime > $currentDateTime && $hourDifference > 1) {
+                    $booking->booking_status = 'cancelled';
+                    $booking->save();
+                    return response()->json(['message' => 'Booking cancelled successfully.'], 200);
+                }
+                return response()->json(['message' => 'Could not cancel booking.'], 200);
+            }
+        } catch (\Exception $exception) {
+            return response($exception->getMessage(), 500);
+        }
     }
 }
